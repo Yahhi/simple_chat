@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:simple_chat/chat_screen.dart';
 import 'package:simple_chat/widgets/todo_list.dart';
 
 import 'widgets/users_list.dart';
@@ -25,18 +24,7 @@ class TabsScreen extends StatelessWidget {
             TodoList(),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _openChat(context),
-          child: const Icon(Icons.message),
-        ),
       ),
-    );
-  }
-
-  void _openChat(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (BuildContext context) => ChatScreen()),
     );
   }
 }

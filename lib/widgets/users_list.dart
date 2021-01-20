@@ -3,6 +3,8 @@ import 'package:simple_chat/client/loader.dart';
 import 'package:simple_chat/model/user.dart';
 import 'package:simple_chat/widgets/user_item.dart';
 
+import '../chat_screen.dart';
+
 class UsersList extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -30,7 +32,15 @@ class _UsersListState extends State<UsersList> with AutomaticKeepAliveClientMixi
             itemBuilder: _userBuilder,
             itemCount: _users.length,
           ),
-        if (_users == null) const Center(child: CircularProgressIndicator())
+        if (_users == null) const Center(child: CircularProgressIndicator()),
+        Positioned(
+          right: 16,
+          bottom: 16,
+          child: FloatingActionButton(
+            onPressed: () => _openChat(context),
+            child: const Icon(Icons.message),
+          ),
+        ),
       ],
     );
   }
@@ -58,5 +68,18 @@ class _UsersListState extends State<UsersList> with AutomaticKeepAliveClientMixi
     setState(() {
       _selected[index] = !_selected[index];
     });
+  }
+
+  void _openChat(BuildContext context) {
+    List<User> list = [];
+    for (int i = 0; i < _users.length; i++) {
+      if (_selected[i]) {
+        list.add(_users[i]);
+      }
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (BuildContext context) => ChatScreen(list)),
+    );
   }
 }
